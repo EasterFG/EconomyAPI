@@ -9,13 +9,13 @@ version: 1.0.1</br>
 api: 1.0.5,1.0.6
 
 ## Commands
-* /setmoney <name> <money> Set a player's gold coin.
+* /money set <name> <money> Set a player's gold coin.
 
-* /addmoney <name> <money> Increase the player's gold coins.
+* /money add <name> <money> Increase the player's gold coins.
 
-* /reducemoney <name> <money> Deduct the player's gold coins.
+* /money reduce <name> <money> Deduct the player's gold coins.
 
-* /mymoney <name> <money> View my gold coins
+* /mymoney View my gold coins
 
 * /pay <name> <money> Pay other documents gold coins
 
@@ -39,7 +39,7 @@ boolean EconomyAPI.setPlayerMoney(Player player, int money)
 boolean EconomyAPI.addPlayerMoney(String name, int money)
 boolean EconomyAPI.addPlayerMoney(Player player, int money)
 boolean EconomyAPI.reducePlayerMoney(String name, int money)
-boolean EconomyAPI.recudePlayerMoney(Player player, int money)
+boolean EconomyAPI.reducePlayerMoney(Player player, int money)
 boolean EconomyAPI.exists(String name, int money)
 boolean EconomyAPI.exists(Player player, int money)
 int EconomyAPI.myMoney(String name)
