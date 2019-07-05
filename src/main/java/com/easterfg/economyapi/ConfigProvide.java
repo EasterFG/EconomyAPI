@@ -20,8 +20,8 @@ class ConfigProvide {
             playerDataFolder.mkdirs();
     }
 
-    public boolean exists(@NotNull  Player palyer) {
-        return exists(palyer.getName());
+    public boolean exists(@NotNull  Player player) {
+        return exists(player.getName());
     }
 
     public boolean exists(@NotNull  String name) {
@@ -34,10 +34,6 @@ class ConfigProvide {
 
     public static ConfigProvide getInstance(EconomyAPI plugin) {
         return new ConfigProvide(plugin);
-    }
-
-    private Config getPlayerConfig(@NotNull Player player) {
-        return getPlayerConfig(player.getName());
     }
 
     private Config getPlayerConfig(@NotNull String name) {

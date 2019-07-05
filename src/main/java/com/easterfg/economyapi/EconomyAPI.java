@@ -18,6 +18,7 @@ public class EconomyAPI extends PluginBase implements Listener {
 
     @Override
     public void onEnable() {
+        this.getLogger().info("EconomyAPI开启成功");
         provide = ConfigProvide.getInstance(this);
         getServer().getPluginManager().registerEvents(this, this);
     }
