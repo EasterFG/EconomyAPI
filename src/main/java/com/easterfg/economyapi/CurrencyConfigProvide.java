@@ -6,6 +6,7 @@ import cn.nukkit.utils.ConfigSection;
 import com.sun.istack.internal.NotNull;
 
 import java.io.File;
+import java.util.LinkedHashMap;
 
 class CurrencyConfigProvide {
 
@@ -43,7 +44,10 @@ class CurrencyConfigProvide {
      * @param name 玩家名称
      */
     public void createConfig(@NotNull String name) {
-        new Config(playerDataFolder.getAbsolutePath() + name + ".yml", Config.YAML,new ConfigSection("money", 0));
+        LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
+        map.put("money", 0);
+        map.put("point", 0);
+        new Config(playerDataFolder.getAbsolutePath() + name + ".yml", Config.YAML,new ConfigSection(map));
     }
 
     /**
@@ -122,7 +126,7 @@ class CurrencyConfigProvide {
      */
     public boolean addPlayerMoney(@NotNull String name, int money) {
         Config config = getPlayerConfig(name);
-        int result = config.get("money", money) + money;
+        int result = config.get("money", 0) + money;
         config.set("money", result);
         return config.save();
     }
@@ -149,4 +153,93 @@ class CurrencyConfigProvide {
         config.set("money", result < 0 ? 0 : result);
         return config.save();
     }
+
+
+
+    /**
+     * 获取玩家的点券数量
+     * @param player 玩家实例
+     * @return int
+     */
+    public int myPoint(@NotNull Player player) {
+        return myPoint(player.getName());
+    }
+
+    /**
+     * 获取玩家的点券数量
+     * @param name 玩家实例
+     * @return int
+     */
+    public int myPoint(@NotNull String name) {
+        return getPlayerConfig(name).getInt("point", 0);
+    }
+
+    /**
+     * 设置玩玩家的金币
+     * @param player 玩家
+     * @param point 数量
+     * @return 是否成功
+     */
+    public boolean setPlayerPoint(@NotNull Player player, int point) {
+        return setPlayerPoint(player.getName(), point);
+    }
+
+    /**
+     * 设置玩玩家的点券
+     * @param name 玩家
+     * @param point 数量
+     * @return 是否成功
+     */
+    public boolean setPlayerPoint(@NotNull String name, int point) {
+        Config config = getPlayerConfig(name);
+        config.set("point", point);
+        return config.save();
+    }
+
+    /**
+     * 为指定玩家添加点券
+     * @param player 玩家实例
+     * @param point 数量
+     * @return 是否成功
+     */
+    public boolean addPlayerPoint(@NotNull Player player, int point) {
+        return addPlayerPoint(player.getName(), point);
+    }
+
+    /**
+     * 为指定玩家添加点券
+     * @param name 玩家实例
+     * @param point 数量
+     * @return 是否成功
+     */
+    public boolean addPlayerPoint(@NotNull String name, int point) {
+        Config config = getPlayerConfig(name);
+        int result = config.get("point", 0) + point;
+        config.set("point", result);
+        return config.save();
+    }
+
+    /**
+     * 扣除指定玩家点券
+     * @param player 玩家实例
+     * @param point 数量
+     * @return 是否成功
+     */
+    public boolean reducePlayerPoint(@NotNull Player player, int point) {
+        return reducePlayerPoint(player.getName(), point);
+    }
+
+    /**
+     * 扣除指定玩家点券
+     * @param name 玩家实例
+     * @param point 数量
+     * @return 是否成功
+     */
+    public boolean reducePlayerPoint(@NotNull String name, int point) {
+        Config config = getPlayerConfig(name);
+        int result = config.get("point", point) - point;
+        config.set("point", result < 0 ? 0 : result);
+        return config.save();
+    }
+
 }
