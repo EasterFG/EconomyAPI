@@ -6,14 +6,8 @@ load: STARTUP
 author: EasterFG
 
 commands:
-  setmoney:
-    description: "设置一个玩家的金币"
-    permission: command.op
-  addmoney:
-    description: "给予玩家指定数量的金币"
-    permission: command.op
-  reducemoney:
-    description: "扣除玩家指定数量的金币"
+  money:
+    description: "操作玩家金币类核心命令"
     permission: command.op
   mymoney:
     description: "玩家查看自己的金币"
