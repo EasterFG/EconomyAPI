@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
 
 public class EconomyAPI extends PluginBase implements Listener {
 
-    private static ConfigProvide provide;
+    private static MoneyConfigProvide provide;
 
     @Override
     public void onEnable() {
         this.getLogger().info("EconomyAPI开启成功");
-        provide = ConfigProvide.getInstance(this);
+        provide = MoneyConfigProvide.getInstance(this);
         getServer().getPluginManager().registerEvents(this, this);
     }
 
@@ -28,7 +28,7 @@ public class EconomyAPI extends PluginBase implements Listener {
 
     }
 
-    public static ConfigProvide  getInstance() {
+    public static MoneyConfigProvide getInstance() {
         return provide;
     }
 
