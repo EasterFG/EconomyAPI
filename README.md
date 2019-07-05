@@ -2,7 +2,7 @@
 
 ## Introduction
 This is a basic economic plugin.It can provide basic economic functions for your server.If you want to use it, you must use MCPE 1.2 and above.
-Please click [here](https://www.dropbox.com/s/y83ue31h7dkryiv/EconomyAPI.jar?dl=0) to download
+Please click [here](https://github.com/EasterFG/EconomyAPI/releases) to download
 
 ## Basic Information
 version: 1.0.1</br>
