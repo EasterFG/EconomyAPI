@@ -15,6 +15,12 @@ commands:
   pay:
     description: "玩家交易金币"
     permission: command.player
+  point:
+    description: "点券系统操作类核心命令"
+    permission: command.op
+  mypoint:
+    description: "查看自己拥有的点券"
+    permission: command.player
 
 permissions:
   command.op:
