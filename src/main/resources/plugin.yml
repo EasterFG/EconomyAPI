@@ -1,0 +1,29 @@
+name: EconomyAPI
+main: com.easterfg.economyapi.EconomyAPI
+api: ["1.0.6", "1.0.5"]
+version: "1.0.1"
+load: STARTUP
+author: EasterFG
+
+commands:
+  setmoney:
+    description: "设置一个玩家的金币"
+    permission: command.op
+  addmoney:
+    description: "给予玩家指定数量的金币"
+    permission: command.op
+  reducemoney:
+    description: "扣除玩家指定数量的金币"
+    permission: command.op
+  mymoney:
+    description: "玩家查看自己的金币"
+    permission: command.player
+  pay:
+    description: "玩家交易金币"
+    permission: command.player
+
+permissions:
+  command.op:
+    default: "op"
+  command.player:
+    default: "true"
