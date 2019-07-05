@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
 
 public class EconomyAPI extends PluginBase implements Listener {
 
-    private static MoneyConfigProvide provide;
+    private static CurrencyConfigProvide provide;
 
     @Override
     public void onEnable() {
         this.getLogger().info("EconomyAPI开启成功");
-        provide = MoneyConfigProvide.getInstance(this);
+        provide = CurrencyConfigProvide.getInstance(this);
         getServer().getPluginManager().registerEvents(this, this);
     }
 
@@ -28,50 +28,130 @@ public class EconomyAPI extends PluginBase implements Listener {
 
     }
 
-    public static MoneyConfigProvide getInstance() {
+    public static CurrencyConfigProvide getInstance() {
         return provide;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
            String cmd = command.getName();
-           if (cmd.equals("setmoney")) {
-                if (args.length != 2) {
-                    sender.sendMessage(TextFormat.GREEN + "使用方法:" + TextFormat.GOLD + "/setmoney <name> <money>");
-                }else {
-                    if (sender instanceof Player) {
-                        Player target;
-                        int money;
-                        if ( (target = getServer().getPlayer(args[0])) == null) {
-                            sender.sendMessage(TextFormat.RED + "无法找到该玩家!");
-                        }else if ((isInteger(args[1]))) {
-                            money = Integer.valueOf(args[1]);
-                            if (money < 0) {
-                                sender.sendMessage(TextFormat.RED + "金额必须大于零!");
-                            }else {
-                                sender.sendMessage(TextFormat.GREEN + "成功设置玩家:" + TextFormat.GOLD + target.getName() + TextFormat.GREEN +"金币为"+ TextFormat.YELLOW + money );
-                                provide.setPlayerMoney(target, money);
-                            }
-                        }else {
-                            sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
-                        }
-                    }else {
-                        int money;
-                        if (!provide.exists(args[0])) {
-                            sender.sendMessage(TextFormat.RED + "目标玩家不存在");
-                        }else if ((isInteger(args[1]))) {
-                            money = Integer.valueOf(args[1]);
-                            if (money < 0) {
-                                sender.sendMessage(TextFormat.RED + "金额必须大于零!");
-                            }else {
-                                sender.sendMessage(TextFormat.GREEN + "成功设置玩家:" + TextFormat.GOLD + args[0] + TextFormat.GREEN +"金币为"+ TextFormat.YELLOW + money );
-                                provide.setPlayerMoney(args[0], money);
-                            }
-                        }else {
-                            sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
-                        }
-                    }
-                }
+           if (cmd.equals("money")) {
+               if (args.length < 1 || args.length > 3) {
+                   sender.sendMessage("§6使用方法: §a /money <set/add/reduce> <name> <money>");
+                   return true;
+               }
+               if (args[0].equals("set")) {
+                   if (args.length != 3) {
+                       sender.sendMessage(TextFormat.GREEN + "使用方法:" + TextFormat.GOLD + "/money set <name> <money>");
+                   }else {
+                       if (sender instanceof Player) {
+                           Player target;
+                           int money;
+                           if ( (target = getServer().getPlayer(args[1])) == null) {
+                               sender.sendMessage(TextFormat.RED + "无法找到该玩家!");
+                           }else if (isInteger(args[2])) {
+                               money = Integer.valueOf(args[2]);
+                               if (money < 0) {
+                                   sender.sendMessage(TextFormat.RED + "金额必须大于零!");
+                               }else {
+                                   sender.sendMessage(TextFormat.GREEN + "成功设置玩家:" + TextFormat.GOLD + target.getName() + TextFormat.GREEN +"金币为"+ TextFormat.YELLOW + money );
+                                   provide.setPlayerMoney(target, money);
+                               }
+                           }else {
+                               sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
+                           }
+                       }else {
+                           int money;
+                           if (!provide.exists(args[1])) {
+                               sender.sendMessage(TextFormat.RED + "目标玩家不存在");
+                           }else if (isInteger(args[2])) {
+                               money = Integer.valueOf(args[2]);
+                               if (money < 0) {
+                                   sender.sendMessage(TextFormat.RED + "金额必须大于零!");
+                               }else {
+                                   sender.sendMessage(TextFormat.GREEN + "成功设置玩家:" + TextFormat.GOLD + args[1] + TextFormat.GREEN +"金币为"+ TextFormat.YELLOW + money );
+                                   provide.setPlayerMoney(args[1], money);
+                               }
+                           }else {
+                               sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
+                           }
+                       }
+                   }
+               }else if (args[0].equals("add")) {
+                   if (args.length != 3) {
+                       sender.sendMessage(TextFormat.GREEN + "使用方法:" + TextFormat.GOLD + "/money add <name> <money>");
+                   }else {
+                       if (sender instanceof Player) {
+                           Player target;
+                           int money;
+                           if ( (target = getServer().getPlayer(args[1])) == null) {
+                               sender.sendMessage(TextFormat.RED + "无法找到该玩家!");
+                           }else if ((isInteger(args[2]))) {
+                               money = Integer.valueOf(args[2]);
+                               if (money < 0) {
+                                   sender.sendMessage(TextFormat.RED + "金额必须大于零!");
+                               }else {
+                                   sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + target.getName() + TextFormat.YELLOW + money + TextFormat.GREEN +"金币" );
+                                   provide.addPlayerMoney(target, money);
+                               }
+                           }else {
+                               sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
+                           }
+                       }else {
+                           int money;
+                           if (!provide.exists(args[1])) {
+                               sender.sendMessage(TextFormat.RED + "目标玩家不存在");
+                           }else if ((isInteger(args[2]))) {
+                               money = Integer.valueOf(args[2]);
+                               if (money < 0) {
+                                   sender.sendMessage(TextFormat.RED + "金额必须大于零!");
+                               }else {
+                                   sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + args[1] + TextFormat.YELLOW + money + TextFormat.GREEN +"金币" );
+                                   provide.addPlayerMoney(args[1], money);
+                               }
+                           }else {
+                               sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
+                           }
+                       }
+                   }
+               }else if (args[0].equals("reduce")) {
+                   if (args.length != 3) {
+                       sender.sendMessage(TextFormat.GREEN + "使用方法:" + TextFormat.GOLD + "/money reduce <name> <money>");
+                   }else {
+                       if (sender instanceof Player) {
+                           Player target;
+                           int money;
+                           if ( (target = getServer().getPlayer(args[1])) == null) {
+                               sender.sendMessage(TextFormat.RED + "无法找到该玩家!");
+                           }else if ((isInteger(args[2]))) {
+                               money = Integer.valueOf(args[2]);
+                               if (money < 0) {
+                                   sender.sendMessage(TextFormat.RED + "金额必须大于零!");
+                               }else {
+                                   sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + target.getName() + TextFormat.YELLOW + money + TextFormat.GREEN +"金币" );
+                                   provide.reducePlayerMoney(target, money);
+                               }
+                           }else {
+                               sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
+                           }
+                       } else {
+                           int money;
+                           if (!provide.exists(args[1])) {
+                               sender.sendMessage(TextFormat.RED + "目标玩家不存在");
+                           } else if ((isInteger(args[2]))) {
+                               money = Integer.valueOf(args[2]);
+                               if (money < 0) {
+                                   sender.sendMessage(TextFormat.RED + "金额必须大于零!");
+                               } else {
+                                   sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + args[1] + TextFormat.YELLOW + money + TextFormat.GREEN + "金币");
+                                   provide.reducePlayerMoney(args[1], money);
+                               }
+                           } else {
+                               sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
+                           }
+                       }
+                   }
+               }
            }else if (cmd.equals("mymoney")) {
                if (sender instanceof  Player) {
                    if (args.length == 0) {
@@ -82,81 +162,7 @@ public class EconomyAPI extends PluginBase implements Listener {
                }else {
                    sender.sendMessage(TextFormat.RED + "你只能在游戏中使用这个命令!");
                }
-           }else if (cmd.equals("addmoney")) {
-               if (args.length != 2) {
-                  sender.sendMessage(TextFormat.GREEN + "使用方法:" + TextFormat.GOLD + "/addmoney <name> <money>");
-               }else {
-                   if (sender instanceof Player) {
-                       Player target;
-                       int money;
-                       if ( (target = getServer().getPlayer(args[0])) == null) {
-                           sender.sendMessage(TextFormat.RED + "无法找到该玩家!");
-                       }else if ((isInteger(args[1]))) {
-                           money = Integer.valueOf(args[1]);
-                           if (money < 0) {
-                               sender.sendMessage(TextFormat.RED + "金额必须大于零!");
-                           }else {
-                               sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + target.getName() + TextFormat.YELLOW + money + TextFormat.GREEN +"金币" );
-                               provide.addPlayerMoney(target, money);
-                           }
-                       }else {
-                           sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
-                       }
-                   }else {
-                       int money;
-                       if (!provide.exists(args[0])) {
-                           sender.sendMessage(TextFormat.RED + "目标玩家不存在");
-                       }else if ((isInteger(args[1]))) {
-                           money = Integer.valueOf(args[1]);
-                           if (money < 0) {
-                               sender.sendMessage(TextFormat.RED + "金额必须大于零!");
-                           }else {
-                               sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + args[0] + TextFormat.YELLOW + money + TextFormat.GREEN +"金币" );
-                               provide.addPlayerMoney(args[0], money);
-                           }
-                       }else {
-                           sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
-                       }
-                   }
-               }
-           }else if (cmd.equals("reducemoney")) {
-               if (args.length != 2) {
-                   sender.sendMessage(TextFormat.GREEN + "使用方法:" + TextFormat.GOLD + "/reducemoney <name> <money>");
-               }else {
-                   if (sender instanceof Player) {
-                       Player target;
-                       int money;
-                       if ( (target = getServer().getPlayer(args[0])) == null) {
-                           sender.sendMessage(TextFormat.RED + "无法找到该玩家!");
-                       }else if ((isInteger(args[1]))) {
-                           money = Integer.valueOf(args[1]);
-                           if (money < 0) {
-                               sender.sendMessage(TextFormat.RED + "金额必须大于零!");
-                           }else {
-                               sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + target.getName() + TextFormat.YELLOW + money + TextFormat.GREEN +"金币" );
-                               provide.reducePlayerMoney(target, money);
-                           }
-                       }else {
-                           sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
-                       }
-                   } else {
-                       int money;
-                       if (!provide.exists(args[0])) {
-                           sender.sendMessage(TextFormat.RED + "目标玩家不存在");
-                       } else if ((isInteger(args[1]))) {
-                           money = Integer.valueOf(args[1]);
-                           if (money < 0) {
-                               sender.sendMessage(TextFormat.RED + "金额必须大于零!");
-                           } else {
-                               sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + args[0] + TextFormat.YELLOW + money + TextFormat.GREEN + "金币");
-                               provide.reducePlayerMoney(args[0], money);
-                           }
-                       } else {
-                           sender.sendMessage(TextFormat.RED + "金额必须是一个数字!");
-                       }
-                   }
-               }
-           }else if (cmd.equals("pay")) {
+           } else if (cmd.equals("pay")) {
                if (sender instanceof Player) {
                    if (args.length != 2) {
                        sender.sendMessage(TextFormat.GREEN + "使用方法:" + TextFormat.GOLD + "/reducemoney <name> <money>");
