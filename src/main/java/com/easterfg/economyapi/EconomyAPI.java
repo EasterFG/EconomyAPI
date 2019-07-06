@@ -25,7 +25,7 @@ public class EconomyAPI extends PluginBase implements Listener {
         this.getLogger().info("§aEconomyAPI插件关闭成功!感谢你的使用.");
     }
 
-    static CurrencyConfigProvide getInstance() {
+    public static CurrencyConfigProvide getInstance() {
         return provide;
     }
 
