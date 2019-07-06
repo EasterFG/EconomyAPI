@@ -8,7 +8,7 @@ import com.sun.istack.internal.NotNull;
 import java.io.File;
 import java.util.LinkedHashMap;
 
-class CurrencyConfigProvide {
+public class CurrencyConfigProvide {
 
     private File playerDataFolder;
 
