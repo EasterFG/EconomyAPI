@@ -16,7 +16,7 @@ public class CurrencyConfigProvide {
         File dataFolder = plugin.getDataFolder();
         if ( ! dataFolder.exists())
             dataFolder.mkdirs();
-        playerDataFolder = new File(dataFolder.getAbsolutePath() + "/Player/");
+        playerDataFolder = new File(dataFolder, "/Player/");
         if (playerDataFolder.exists())
             playerDataFolder.mkdirs();
     }
