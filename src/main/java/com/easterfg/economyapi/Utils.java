@@ -182,12 +182,12 @@ class Utils {
             }else {
                 sender.sendMessage(TextFormat.RED + "你只能在游戏中使用这个命令!");
             }
-        } else if (cmd.equals("mupoint")) {
+        } else if (cmd.equals("mypoint")) {
             if (sender instanceof  Player) {
                 if (args.length == 0) {
                     sender.sendMessage(TextFormat.GREEN + "你当前拥有" + TextFormat.YELLOW + EconomyAPI.getInstance().myPoint((Player) sender) + TextFormat.GREEN + "点券");
                 }else {
-                    sender.sendMessage(TextFormat.GREEN + "使用方法:" + TextFormat.GOLD + "/mymoney");
+                    sender.sendMessage(TextFormat.GREEN + "使用方法:" + TextFormat.GOLD + "/mypoint");
                 }
             }else {
                 sender.sendMessage(TextFormat.RED + "你只能在游戏中使用这个命令!");
