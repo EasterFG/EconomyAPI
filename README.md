@@ -23,16 +23,26 @@ Finally, you can call other methods.
 
 ## Methods List
 ```Java
+boolean EconomyAPI.exists(String name, int money)
+boolean EconomyAPI.exists(Player player, int money)
+//金币系统API
 boolean EconomyAPI.setPlayerMoney(String name, int money)
 boolean EconomyAPI.setPlayerMoney(Player player, int money)
 boolean EconomyAPI.addPlayerMoney(String name, int money)
 boolean EconomyAPI.addPlayerMoney(Player player, int money)
 boolean EconomyAPI.reducePlayerMoney(String name, int money)
 boolean EconomyAPI.reducePlayerMoney(Player player, int money)
-boolean EconomyAPI.exists(String name, int money)
-boolean EconomyAPI.exists(Player player, int money)
 int EconomyAPI.myMoney(String name)
 int EconomyAPI.myMoney(Player player)
+//点券系统API
+boolean EconomyAPI.setPlayerPoint(String name, int money)
+boolean EconomyAPI.setPlayerPoint(Player player, int money)
+boolean EconomyAPI.addPlayerPoint(String name, int money)
+boolean EconomyAPI.addPlayerPoint(Player player, int money)
+boolean EconomyAPI.reducePlayerPoint(String name, int money)
+boolean EconomyAPI.reducePlayerPoint(Player player, int money)
+int EconomyAPI.myPoint(String name)
+int EconomyAPI.myPoint(Player player)
 ```
 
 ## Bug feedback and communication
