@@ -5,19 +5,8 @@ This is a basic economic plugin.It can provide basic economic functions for your
 Please click [here](https://github.com/EasterFG/EconomyAPI/releases) to download
 
 ## Basic Information
-version: 1.0.1</br>
-api: 1.0.5,1.0.6
-
-## Commands
-* /money set <name> <money> Set a player's gold coin.
-
-* /money add <name> <money> Increase the player's gold coins.
-
-* /money reduce <name> <money> Deduct the player's gold coins.
-
-* /mymoney View my gold coins
-
-* /pay <name> <money> Pay other documents gold coins
+version: 1.1.3</br>
+api: 1.0.5,1.0.6,1.0.7,1.0.8
 
 ## Usage API
 You must first import this package
