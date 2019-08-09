@@ -1,7 +1,7 @@
 name: EconomyAPI
 main: com.easterfg.economyapi.EconomyAPI
 api: ["1.0.6", "1.0.5"]
-version: "1.2.0"
+version: "1.2.1"
 load: STARTUP
 author: EasterFG
 
