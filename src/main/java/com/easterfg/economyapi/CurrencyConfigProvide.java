@@ -1,8 +1,11 @@
 package com.easterfg.economyapi;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.ConfigSection;
+import com.easterfg.economyapi.event.MoneyChangeEvent;
+import com.easterfg.economyapi.event.PointChangeEvent;
 import com.sun.istack.internal.NotNull;
 
 import java.io.File;
@@ -104,8 +107,13 @@ public class CurrencyConfigProvide {
      */
     public boolean setPlayerMoney(@NotNull String name, int money) {
         Config config = getPlayerConfig(name);
-        config.set("money", money);
-        return config.save();
+        MoneyChangeEvent event = new MoneyChangeEvent(name, MoneyChangeEvent.ACTION_SET, money);
+        Server.getInstance().getPluginManager().callEvent(event);
+        if (! event.isCancelled()) {
+            config.set("money", event.getMoney());
+            return config.save();
+        }
+        return false;
     }
 
     /**
@@ -127,8 +135,13 @@ public class CurrencyConfigProvide {
     public boolean addPlayerMoney(@NotNull String name, int money) {
         Config config = getPlayerConfig(name);
         int result = config.get("money", 0) + money;
-        config.set("money", result);
-        return config.save();
+        MoneyChangeEvent event = new MoneyChangeEvent(name, MoneyChangeEvent.ACTION_ADD, result);
+        Server.getInstance().getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {
+            config.set("money", event.getMoney());
+            return config.save();
+        }
+        return false;
     }
 
     /**
@@ -150,8 +163,13 @@ public class CurrencyConfigProvide {
     public boolean reducePlayerMoney(@NotNull String name, int money) {
         Config config = getPlayerConfig(name);
         int result = config.get("money", money) - money;
-        config.set("money", result < 0 ? 0 : result);
-        return config.save();
+        MoneyChangeEvent event = new MoneyChangeEvent(name, MoneyChangeEvent.ACTION_REDUCE, result);
+        Server.getInstance().getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {
+            config.set("money", Math.max(result, 0));
+            return config.save();
+        }
+        return false;
     }
 
 
@@ -192,8 +210,12 @@ public class CurrencyConfigProvide {
      */
     public boolean setPlayerPoint(@NotNull String name, int point) {
         Config config = getPlayerConfig(name);
-        config.set("point", point);
-        return config.save();
+        PointChangeEvent event = new PointChangeEvent(name, PointChangeEvent.ACTION_SET, point);
+        if (! event.isCancelled()) {
+            config.set("point", point);
+            return config.save();
+        }
+        return false;
     }
 
     /**
@@ -215,8 +237,12 @@ public class CurrencyConfigProvide {
     public boolean addPlayerPoint(@NotNull String name, int point) {
         Config config = getPlayerConfig(name);
         int result = config.get("point", 0) + point;
-        config.set("point", result);
-        return config.save();
+        PointChangeEvent event = new PointChangeEvent(name, PointChangeEvent.ACTION_ADD, point);
+        if (! event.isCancelled()) {
+            config.set("point", result);
+            return config.save();
+        }
+        return false;
     }
 
     /**
@@ -238,8 +264,12 @@ public class CurrencyConfigProvide {
     public boolean reducePlayerPoint(@NotNull String name, int point) {
         Config config = getPlayerConfig(name);
         int result = config.get("point", point) - point;
-        config.set("point", result < 0 ? 0 : result);
-        return config.save();
+        PointChangeEvent event = new PointChangeEvent(name, PointChangeEvent.ACTION_REDUCE, point);
+        if (! event.isCancelled()) {
+            config.set("point", Math.max(result, 0));
+            return config.save();
+        }
+        return false;
     }
 
 }
