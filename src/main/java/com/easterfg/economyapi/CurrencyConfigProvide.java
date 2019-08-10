@@ -211,6 +211,7 @@ public class CurrencyConfigProvide {
     public boolean setPlayerPoint(@NotNull String name, int point) {
         Config config = getPlayerConfig(name);
         PointChangeEvent event = new PointChangeEvent(name, PointChangeEvent.ACTION_SET, point);
+        Server.getInstance().getPluginManager().callEvent(event);
         if (! event.isCancelled()) {
             config.set("point", point);
             return config.save();
@@ -238,6 +239,7 @@ public class CurrencyConfigProvide {
         Config config = getPlayerConfig(name);
         int result = config.get("point", 0) + point;
         PointChangeEvent event = new PointChangeEvent(name, PointChangeEvent.ACTION_ADD, point);
+        Server.getInstance().getPluginManager().callEvent(event);
         if (! event.isCancelled()) {
             config.set("point", result);
             return config.save();
@@ -265,6 +267,7 @@ public class CurrencyConfigProvide {
         Config config = getPlayerConfig(name);
         int result = config.get("point", point) - point;
         PointChangeEvent event = new PointChangeEvent(name, PointChangeEvent.ACTION_REDUCE, point);
+        Server.getInstance().getPluginManager().callEvent(event);
         if (! event.isCancelled()) {
             config.set("point", Math.max(result, 0));
             return config.save();
