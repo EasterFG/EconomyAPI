@@ -94,10 +94,12 @@ class Utils {
                                         sender.sendMessage(TextFormat.RED + "金额必须大于零!");
                                     } else {
                                         if (mode) {
-                                            sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + target.getName() + TextFormat.YELLOW + money + TextFormat.GREEN + "点券");
+                                            sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + target.getName() + TextFormat.GREEN + "点券 x " + TextFormat.YELLOW + money);
+                                            target.sendMessage(TextFormat.GREEN + "你获得了 点券 x " + TextFormat.YELLOW + money);
                                             EconomyAPI.getInstance().addPlayerPoint(target, money);
                                         } else {
-                                            sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + target.getName() + TextFormat.YELLOW + money + TextFormat.GREEN + "金币");
+                                            sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + target.getName() + TextFormat.GREEN + "金币 x " +  TextFormat.YELLOW + money );
+                                            target.sendMessage(TextFormat.GREEN + "你获得了 金币 x " + TextFormat.YELLOW + money);
                                             EconomyAPI.getInstance().addPlayerMoney(target, money);
                                         }
                                     }
@@ -114,10 +116,10 @@ class Utils {
                                         sender.sendMessage(TextFormat.RED + "金额必须大于零!");
                                     } else {
                                         if (mode) {
-                                            sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + args[1] + TextFormat.YELLOW + money + TextFormat.GREEN + "点券");
+                                            sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + args[1] + TextFormat.GREEN + "点券 x " + TextFormat.YELLOW + money);
                                             EconomyAPI.getInstance().addPlayerPoint(args[1], money);
                                         } else {
-                                            sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + args[1] + TextFormat.YELLOW + money + TextFormat.GREEN + "金币");
+                                            sender.sendMessage(TextFormat.GREEN + "成功给予玩家:" + TextFormat.GOLD + args[1] + TextFormat.GREEN + "金币 x " + TextFormat.YELLOW + money);
                                             EconomyAPI.getInstance().addPlayerMoney(args[1], money);
                                         }
                                     }
@@ -145,10 +147,10 @@ class Utils {
                                         sender.sendMessage(TextFormat.RED + "金额必须大于零!");
                                     } else {
                                         if (mode) {
-                                            sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + target.getName() + TextFormat.YELLOW + money + TextFormat.GREEN + "点券");
+                                            sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + target.getName() + TextFormat.GREEN + "点券 x " + TextFormat.YELLOW + money);
                                             EconomyAPI.getInstance().reducePlayerPoint(target, money);
                                         } else {
-                                            sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + target.getName() + TextFormat.YELLOW + money + TextFormat.GREEN + "金币");
+                                            sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + target.getName() + TextFormat.GREEN + "金币 x " + TextFormat.YELLOW + money);
                                             EconomyAPI.getInstance().reducePlayerMoney(target, money);
                                         }
                                     }
@@ -165,10 +167,10 @@ class Utils {
                                         sender.sendMessage(TextFormat.RED + "金额必须大于零!");
                                     } else {
                                         if (mode) {
-                                            sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + args[1] + TextFormat.YELLOW + money + TextFormat.GREEN + "点券");
+                                            sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + args[1] + TextFormat.GREEN + "点券 x " + TextFormat.YELLOW + money);
                                             EconomyAPI.getInstance().reducePlayerPoint(args[1], money);
                                         } else {
-                                            sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + args[1] + TextFormat.YELLOW + money + TextFormat.GREEN + "金币");
+                                            sender.sendMessage(TextFormat.GREEN + "成功扣除玩家:" + TextFormat.GOLD + args[1] + TextFormat.GREEN + "金币 x " + TextFormat.YELLOW + money);
                                             EconomyAPI.getInstance().reducePlayerMoney(args[1], money);
                                         }
                                     }
@@ -221,7 +223,8 @@ class Utils {
                                 if (EconomyAPI.getInstance().myMoney((Player) sender) < money) {
                                     sender.sendMessage(TextFormat.RED + "你没有足够的金币");
                                 } else {
-                                    sender.sendMessage(TextFormat.GREEN + "成功付给玩家" + TextFormat.GOLD + target.getName() + TextFormat.GOLD + money + TextFormat.GREEN + "金币");
+                                    sender.sendMessage(TextFormat.GREEN + "成功付给玩家" + TextFormat.GOLD + target.getName() + TextFormat.GREEN + "金币 x " + TextFormat.YELLOW + money);
+                                    target.sendMessage(TextFormat.GREEN + "玩家" + TextFormat.GOLD + sender.getName() +  TextFormat.GREEN + "付给你" +  TextFormat.GREEN + "金币 x " + TextFormat.YELLOW + money);
                                     EconomyAPI.getInstance().reducePlayerMoney((Player) sender, money);
                                     EconomyAPI.getInstance().addPlayerMoney(target, money);
                                 }
